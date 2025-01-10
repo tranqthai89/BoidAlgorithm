@@ -31,6 +31,28 @@ public class BoidMovement : MonoBehaviour
         return _listBoids;
     }
     private bool InVisionCone(Vector2 _pos){
-        return false;
+        // - Tính Vector từ đối tượng tới vị trí
+        Vector2 _directionToPosition = _pos - (Vector2) transform.position;
+        // - Tính tích vô hướng của vector này tới hướng đối tượng
+        float _dotProduct = Vector2.Dot(transform.forward, _directionToPosition);
+        // - Tính cosin của nửa góc tầm nhìn (visionAngle), chuyển từ độ sang radian. Góc này xác định kích thước của hình nón tầm nhìn
+        float _cosHalfVisionAngle = Mathf.Cos(visionAngle * 0.5f * Mathf.Deg2Rad);
+        // - So sánh kết quả với cosin của nửa góc tầm nhìn để xác định vị trí có nằm trong hình nón tầm nhìn hay không
+        return _dotProduct >= _cosHalfVisionAngle;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // - Vẽ hình cầu dây ở vị trí của đối tượng với bán kính được xác định
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radiusDetect);
+
+        var _boidsInRange = GetBoidsInRange();
+        foreach (var _boid in _boidsInRange)
+        {
+            // Vẽ 1 đường thẳng từ vị trí hiện tại của đối tượng đến vị trí của từng boid, minh họa các boid khác nằm trong tầm nhìn.
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position, _boid.transform.position);
+        }
     }
 }

@@ -550,6 +550,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 5
+  radiusDetect: 2
+  visionAngle: 270
 --- !u!114 &8452013378801973898
 MonoBehaviour:
   m_ObjectHideFlags: 0
