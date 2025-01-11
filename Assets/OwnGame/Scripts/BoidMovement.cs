@@ -28,11 +28,11 @@ public class BoidMovement : MonoBehaviour
         // Danh sách các boids nằm trong phạm vi ảnh hưởng
         var _boidsInRange = GetBoidsInRange(); 
         Vector2 _velocity = ((Vector2) transform.forward
-                + 1.7f * Separation (_boidsInRange) // cộng thêm hướng luật tránh va chạm
-                + 0.1f * Aligment(_boidsInRange) // cộng thêm hướng luật aligment di chuyển theo hướng
+                + 1.7f * Separation (_boidsInRange) // cộng thêm hướng luật Separation tránh va chạm, di chuyển đè chồng
+                + 0.1f * Aligment(_boidsInRange) // cộng thêm hướng luật aligment di chuyển theo hướng cùng chiều
                 + Cohesion(_boidsInRange) // cộng thêm hướng luật cohesion di chuyển theo trung tâm đàn
                 ).normalized * forwardSpeed;
-        return _velocity; // Cộng thêm hướng luật Separation
+        return _velocity; 
     }
     private List<BoidMovement> GetBoidsInRange(){
         List<BoidMovement> _boids = SpawnManager.Instance.boids;
