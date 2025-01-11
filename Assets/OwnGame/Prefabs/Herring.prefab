@@ -552,6 +552,7 @@ MonoBehaviour:
   forwardSpeed: 5
   radiusDetect: 2
   visionAngle: 270
+  turnSpeed: 10
 --- !u!114 &8452013378801973898
 MonoBehaviour:
   m_ObjectHideFlags: 0
