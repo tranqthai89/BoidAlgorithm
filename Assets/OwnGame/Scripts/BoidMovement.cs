@@ -30,7 +30,7 @@ public class BoidMovement : MonoBehaviour
         Vector2 _velocity = ((Vector2) transform.forward
                 + 1.7f * Separation (_boidsInRange) // cộng thêm hướng luật tránh va chạm
                 + 0.1f * Aligment(_boidsInRange) // cộng thêm hướng luật aligment di chuyển theo hướng
-                + Cohesion(_boidsInRange) // cộng thêm hướng luật cohesion di chuyển theo đàn
+                + Cohesion(_boidsInRange) // cộng thêm hướng luật cohesion di chuyển theo trung tâm đàn
                 ).normalized * forwardSpeed;
         return _velocity; // Cộng thêm hướng luật Separation
     }
