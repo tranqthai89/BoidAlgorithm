@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BoidMovement : MonoBehaviour
 {
-    public float forwardSpeed = 5f;
-    public float radiusDetect = 2f; // bán kính detect
-    public float visionAngle = 270f; // Tầm nhìn 270 độ của boid
-    public float turnSpeed = 10; // Số lần cập nhật
+    public float forwardSpeed;
+    public float radiusDetect; // bán kính detect
+    public float visionAngle; // Tầm nhìn 270 độ của boid
+    public float turnSpeed; // Số lần cập nhật
 
     public Vector3 Velocity{get;private set;}
 
@@ -25,7 +25,6 @@ public class BoidMovement : MonoBehaviour
     }
     private Vector2 CaculateVelocity()
     {
-        // test new commit
         // Danh sách các boids nằm trong phạm vi ảnh hưởng
         var _boidsInRange = GetBoidsInRange(); 
         Vector2 _velocity = ((Vector2) transform.forward
