@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 6749466526009779319}
   - component: {fileID: 8452013378801973898}
   m_Layer: 0
-  m_Name: Herring
+  m_Name: Herring_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

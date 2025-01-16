@@ -23,7 +23,7 @@ public class TeteportBoundery : MonoBehaviour
             }
             transform.position = _pos;
         }
-        if(Mathf.Abs(transform.position.y) > boundery.XLimit){
+        if(Mathf.Abs(transform.position.y) > boundery.YLimit){
             Vector3 _pos = transform.position;
             if(transform.position.y > 0){
                 _pos.y = -boundery.YLimit;

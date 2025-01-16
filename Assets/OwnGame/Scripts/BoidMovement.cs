@@ -26,34 +26,42 @@ public class BoidMovement : MonoBehaviour
     private Vector2 CaculateVelocity()
     {
         // Danh sách các boids nằm trong phạm vi ảnh hưởng
+        // var _boidsInRange = GetBoidsInRange(); 
+        // Vector2 _velocity = ((Vector2) transform.forward
+        //         + 1.7f * Separation (_boidsInRange) // cộng thêm hướng luật Separation tránh va chạm, di chuyển đè chồng
+        //         + 0.1f * Aligment(_boidsInRange) // cộng thêm hướng luật aligment di chuyển theo hướng cùng chiều
+        //         + Cohesion(_boidsInRange) // cộng thêm hướng luật cohesion di chuyển theo trung tâm đàn
+        //         ).normalized * forwardSpeed;
+        // return _velocity; 
+
         var _boidsInRange = GetBoidsInRange(); 
+        int _boidCount = _boidsInRange.Count;
+
+        Vector2 _separation = Vector2.zero;
+        Vector2 _direction_Aligment = Vector2.zero;
+        Vector2 _center_Cohesion = Vector2.zero;
+        for(int i = 0; i < _boidCount; i ++){
+            _separation -= BoidAlgorithm.Separation(transform.position, _boidsInRange[i].transform.position, radiusDetect);
+            _direction_Aligment += (Vector2) _boidsInRange[i].Velocity;
+            _center_Cohesion += (Vector2) _boidsInRange[i].transform.position;
+        }
+        Vector2 _aligment = BoidAlgorithm.Aligment(_direction_Aligment, transform.forward, _boidCount);
+        Vector2 _cohesion = BoidAlgorithm.Cohesion(_center_Cohesion, transform.position, _boidCount);
         Vector2 _velocity = ((Vector2) transform.forward
-                + 1.7f * Separation (_boidsInRange) // cộng thêm hướng luật Separation tránh va chạm, di chuyển đè chồng
-                + 0.1f * Aligment(_boidsInRange) // cộng thêm hướng luật aligment di chuyển theo hướng cùng chiều
-                + Cohesion(_boidsInRange) // cộng thêm hướng luật cohesion di chuyển theo trung tâm đàn
+                + 1.7f * _separation
+                + 0.1f * _aligment
+                + _cohesion
                 ).normalized * forwardSpeed;
         return _velocity; 
     }
     private List<BoidMovement> GetBoidsInRange(){
-        List<BoidMovement> _boids = SpawnManager.Instance.boids;
+        List<BoidMovement> _boids = SpawnManager.Instance.ListBoids;
         float _powRadius = radiusDetect * radiusDetect;
         var _listBoids = _boids.FindAll(_boid => _boid != this
             && Vector2.SqrMagnitude((Vector2) transform.position - (Vector2) _boid.transform.position) <= _powRadius
-            && InVisionCone(_boid.transform.position));
+            && MyConstant.CheckIfInVisionCone(transform.position, transform.forward, visionAngle, _boid.transform.position));
+            // && InVisionCone(_boid.transform.position));
         return _listBoids;
-    }
-    /// <summary>
-    /// Check xem vị trí pos truyền vào có nằm trong góc hình nón của radar không
-    /// </summary>
-    private bool InVisionCone(Vector2 _pos){
-        // - Tính Vector từ đối tượng tới vị trí
-        Vector2 _directionToPosition = _pos - (Vector2) transform.position;
-        // - Tính tích vô hướng của vector này tới hướng đối tượng
-        float _dotProduct = Vector2.Dot(transform.forward, _directionToPosition);
-        // - Tính cosin của nửa góc tầm nhìn (visionAngle), chuyển từ độ sang radian. Góc này xác định kích thước của hình nón tầm nhìn
-        float _cosHalfVisionAngle = Mathf.Cos(visionAngle * 0.5f * Mathf.Deg2Rad);
-        // - So sánh kết quả với cosin của nửa góc tầm nhìn để xác định vị trí có nằm trong hình nón tầm nhìn hay không
-        return _dotProduct >= _cosHalfVisionAngle;
     }
 
     private void OnDrawGizmosSelected()
