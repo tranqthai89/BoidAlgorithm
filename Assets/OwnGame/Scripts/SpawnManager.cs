@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     }
     static SpawnManager ins;
 
+    public Boundary boundery;
     public List<BoidMovement> ListBoids{get;set;}
     [SerializeField] private BoidMovement boidPrefab;
     [SerializeField] private int boidCount;
@@ -18,10 +19,9 @@ public class SpawnManager : MonoBehaviour
     void Awake()
     {
         ins = this;
-    }
 
-    void Start()
-    {
+        boundery = new Boundary();
+        
         if(ListBoids == null){
             ListBoids = new List<BoidMovement>();
         }else if(ListBoids.Count > 0){

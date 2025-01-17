@@ -12,6 +12,7 @@ public class ECS_SpawnManager : MonoBehaviour
     }
     static ECS_SpawnManager ins;
 
+    public Boundary boundery;
     public List<ECS_BoidController> ListBoids {get;set;}
     [SerializeField] private ECS_BoidController boidPrefab;
     [SerializeField] private int boidCount;
@@ -19,6 +20,9 @@ public class ECS_SpawnManager : MonoBehaviour
     void Awake()
     {
         ins = this;
+
+        boundery = new Boundary();
+
         if(ListBoids == null){
             ListBoids = new List<ECS_BoidController>();
         }else if(ListBoids.Count > 0){
@@ -41,5 +45,10 @@ public class ECS_SpawnManager : MonoBehaviour
 
             ListBoids.Add(_boid);
         }
+    }
+    void OnRectTransformDimensionsChange()
+    {
+        Debug.Log("RectTransform dimensions changed!");
+        // Thực hiện các hành động cần thiết khi kích thước thay đổi
     }
 }

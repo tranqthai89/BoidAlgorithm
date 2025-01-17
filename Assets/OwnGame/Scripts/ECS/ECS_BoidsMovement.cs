@@ -43,7 +43,6 @@ public class ECS_BoidsMovement : MonoBehaviour
                 position = ECS_SpawnManager.Instance.ListBoids[i].transform.position,
             };
         }
-        
     }
 
     void Update()
@@ -79,6 +78,8 @@ public class ECS_BoidsMovement : MonoBehaviour
             
             // - Tính toán và cập nhật vị trí mới dựa trên vận tốc
             _transform.position += _velocity * deltaTime;
+
+            CheckIfOutOfBoundary(_transform);
 
             if(_velocity != Vector3.zero){
                 // - Xoay đối tượng hướng theo vector vận tốc 
@@ -132,6 +133,27 @@ public class ECS_BoidsMovement : MonoBehaviour
             NativeArray<BoidData> _boids = new NativeArray<BoidData>(_boidsInRange.AsArray(), Allocator.Temp);
             _boidsInRange.Dispose();
             return _boids;
+        }
+        private void CheckIfOutOfBoundary(TransformAccess _transform){
+            // Kiểm tra các trục: nếu vượt ra vùng limit thì sẽ đặt lại vị trí là phía đối diện của trục
+            if(Mathf.Abs(_transform.position.x) > ECS_SpawnManager.Instance.boundery.XLimit){
+                Vector3 _pos = _transform.position;
+                if(_transform.position.x > 0){
+                    _pos.x = -ECS_SpawnManager.Instance.boundery.XLimit;
+                }else{
+                    _pos.x = ECS_SpawnManager.Instance.boundery.XLimit;
+                }
+                _transform.position = _pos;
+            }
+            if(Mathf.Abs(_transform.position.y) > ECS_SpawnManager.Instance.boundery.YLimit){
+                Vector3 _pos = _transform.position;
+                if(_transform.position.y > 0){
+                    _pos.y = -ECS_SpawnManager.Instance.boundery.YLimit;
+                }else{
+                    _pos.y = ECS_SpawnManager.Instance.boundery.YLimit;
+                }
+                _transform.position = _pos;
+            }
         }
     }
 }

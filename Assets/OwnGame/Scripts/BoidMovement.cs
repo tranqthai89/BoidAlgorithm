@@ -22,6 +22,29 @@ public class BoidMovement : MonoBehaviour
         // - Xoay đối tượng hướng theo vector vận tốc 
         transform.rotation = Quaternion.Slerp(transform.localRotation
             ,Quaternion.LookRotation(Velocity), turnSpeed * Time.fixedDeltaTime);
+        
+        CheckIfOutOfBoundary();
+    }
+    private void CheckIfOutOfBoundary(){
+        // Kiểm tra các trục: nếu vượt ra vùng limit thì sẽ đặt lại vị trí là phía đối diện của trục
+        if(Mathf.Abs(transform.position.x) > SpawnManager.Instance.boundery.XLimit){
+            Vector3 _pos = transform.position;
+            if(transform.position.x > 0){
+                _pos.x = -SpawnManager.Instance.boundery.XLimit;
+            }else{
+                _pos.x = SpawnManager.Instance.boundery.XLimit;
+            }
+            transform.position = _pos;
+        }
+        if(Mathf.Abs(transform.position.y) > SpawnManager.Instance.boundery.YLimit){
+            Vector3 _pos = transform.position;
+            if(transform.position.y > 0){
+                _pos.y = -SpawnManager.Instance.boundery.YLimit;
+            }else{
+                _pos.y = SpawnManager.Instance.boundery.YLimit;
+            }
+            transform.position = _pos;
+        }
     }
     private Vector2 CaculateVelocity()
     {

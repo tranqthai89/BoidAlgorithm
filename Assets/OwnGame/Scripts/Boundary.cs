@@ -6,16 +6,19 @@ public class Boundary {
 
     public float XLimit{
         get{
-            CalculateLimit();
             return xLimit;
         }
     }
     public float YLimit{
         get{
-            CalculateLimit();
             return yLimit;
         }
     }
+
+    public Boundary(){
+        CalculateLimit();
+    }
+
     private void CalculateLimit(){
         yLimit = Camera.main.orthographicSize + 1f;
         xLimit = yLimit * Screen.width / Screen.height + 1f;

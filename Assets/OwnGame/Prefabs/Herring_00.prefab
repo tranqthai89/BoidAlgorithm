@@ -457,7 +457,6 @@ GameObject:
   - component: {fileID: 416433671310845196}
   - component: {fileID: 7086541910865749662}
   - component: {fileID: 6749466526009779319}
-  - component: {fileID: 8452013378801973898}
   m_Layer: 0
   m_Name: Herring_00
   m_TagString: Untagged
@@ -553,18 +552,6 @@ MonoBehaviour:
   radiusDetect: 2
   visionAngle: 270
   turnSpeed: 10
---- !u!114 &8452013378801973898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5506383763482643272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e3cddb2c7e7ed243a388aa4a9e860d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6115942558426212760
 GameObject:
   m_ObjectHideFlags: 0
